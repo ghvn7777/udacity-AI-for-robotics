@@ -40,7 +40,7 @@ def search(grid,init,goal,cost,heuristic):
     # modify the code below
     # ----------------------------------------
     closed = [[0 for col in range(len(grid[0]))] for row in range(len(grid))]
-    closed[init[0]][init[1]] = 1
+    # closed[init[0]][init[1]] = 1
 
     expand = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
     action = [[-1 for col in range(len(grid[0]))] for row in range(len(grid))]
@@ -70,6 +70,9 @@ def search(grid,init,goal,cost,heuristic):
             f = next[0]
             expand[x][y] = count
             count += 1
+        
+            # 这么改完没有测试过，感觉这样可以保证遍历该格子时是最小的 f，如果在下面直接赋值了再次以更小的代价遍历到也无法赋值了
+            closed[x2][y2] = 1
             
             if x == goal[0] and y == goal[1]:
                 found = True
@@ -82,7 +85,7 @@ def search(grid,init,goal,cost,heuristic):
                             g2 = g + cost
                             f2 = g2 + heuristic[x2][y2]
                             open.append([f2, g2, x2, y2])
-                            closed[x2][y2] = 1
+                            # closed[x2][y2] = 1
 
     return expand
     
